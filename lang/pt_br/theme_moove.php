@@ -31,10 +31,7 @@ $string['currentinparentheses'] = '(atual)';
 $string['region-side-pre'] = 'Direita';
 $string['prev_section'] = 'Seção anterior';
 $string['next_section'] = 'Próxima seção';
-$string['themedevelopedby'] = 'Este tema foi orgulhosamente desenvolvido por';
-$string['themedevelopedbyconectimepartner'] = 'uma empresa Moodle Partner genuinamente Brasileira.';
-$string['needsupport'] = 'Precisa de ajuda com seu site Moodle? ';
-$string['pleasuretohelp'] = 'Será um prazer ajudar você!';
+$string['themedevelopedby'] = 'Este tema foi desenvolvido por';
 $string['access'] = 'Acesso';
 $string['prev_activity'] = 'Atividade anterior';
 $string['next_activity'] = 'Próxima atividade';
@@ -65,8 +62,6 @@ $string['fontsite'] = 'Fonte do Site';
 $string['fontsite_desc'] = 'Fonte padrão do site. Você pode experimentar as fontes em <a href="https://fonts.google.com">Google Fonts</a>.';
 $string['enablecourseindex'] = 'Habilitar tópicos do curso';
 $string['enablecourseindex_desc'] = 'Exibir ou ocultar tópicos do curso.';
-$string['enableclassicbreadcrumb'] = 'Habilitar breadcrum clássico';
-$string['enableclassicbreadcrumb_desc'] = 'Esta configuração habilita o breadcrumb clássico, exibindo páginas como curso e categorias.';
 
 // Advanced settings tab.
 $string['advancedsettings'] = 'Avançado';

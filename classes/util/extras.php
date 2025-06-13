@@ -38,7 +38,6 @@ class extras {
      * Returns the buttons displayed at the page header
      *
      * @param \core\context\course $context
-     * @param int $courseid
      * @param \stdClass $user
      *
      * @return array
@@ -46,7 +45,7 @@ class extras {
      * @throws \coding_exception
      * @throws \moodle_exception
      */
-    public static function get_mypublic_headerbuttons($context, $courseid, $user): array {
+    public static function get_mypublic_headerbuttons($context, $courseid, $user) {
         global $USER, $CFG;
 
         $headerbuttons = [];
@@ -90,11 +89,9 @@ class extras {
     /**
      * Returns local_mail plugin button.
      *
-     * @param int $courseid
-     * @param int $userid
-     *
+     * @param $courseid
+     * @param $userid
      * @return array
-     *
      * @throws \coding_exception
      * @throws \moodle_exception
      */
@@ -108,10 +105,7 @@ class extras {
         return [
             'title' => get_string('sendmail', 'local_mail'),
             'url' => new \moodle_url('/local/mail/create.php', [
-                'course' => $courseid,
-                'recipients' => $userid,
-                'role' => 'to',
-                'sesskey' => sesskey(),
+                'course' => $courseid, 'recipients' => $userid, 'role' => 'to', 'sesskey' => sesskey()
             ]),
             'icon' => 'fa fa-fw fa-envelope-o',
             'class' => 'btn-header btn btn-sm btn-primary',
