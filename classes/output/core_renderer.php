@@ -492,7 +492,7 @@ class core_renderer extends \theme_boost\output\core_renderer {
      * @return string Final html code.
      */
     public function get_navbar_callbacks_data() {
-        $callbacks = get_plugins_with_function('moove_additional_header', 'lib.php', true, true);
+        $callbacks = get_plugins_with_function('moove_additional_header', 'lib.php');
 
         if (!$callbacks) {
             return '';
@@ -517,7 +517,7 @@ class core_renderer extends \theme_boost\output\core_renderer {
      * @return string Final html code.
      */
     public function get_module_footer_callbacks_data() {
-        $callbacks = get_plugins_with_function('moove_module_footer', 'lib.php', true, true);
+        $callbacks = get_plugins_with_function('moove_module_footer', 'lib.php');
 
         if (!$callbacks) {
             return '';
@@ -600,15 +600,5 @@ class core_renderer extends \theme_boost\output\core_renderer {
         $output .= $this->footer();
 
         return $output;
-    }
-
-    /**
-     * Renders the "breadcrumb" for all pages in boost.
-     *
-     * @return string the HTML for the navbar.
-     */
-    public function navbar(): string {
-        $newnav = new \theme_moove\output\boostnavbar($this->page);
-        return $this->render_from_template('core/navbar', $newnav);
     }
 }

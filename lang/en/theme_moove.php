@@ -31,10 +31,7 @@ $string['currentinparentheses'] = '(current)';
 $string['region-side-pre'] = 'Right';
 $string['prev_section'] = 'Previous section';
 $string['next_section'] = 'Next section';
-$string['themedevelopedby'] = 'This theme was proudly developed by';
-$string['themedevelopedbyconectimepartner'] = 'a Brazilian Moodle Partner Company.';
-$string['needsupport'] = 'Need support for your Moodle site? ';
-$string['pleasuretohelp'] = 'It will be a pleasure to help you!';
+$string['themedevelopedby'] = 'This theme was developed by';
 $string['access'] = 'Access';
 $string['prev_activity'] = 'Previous activity';
 $string['next_activity'] = 'Next activity';
@@ -65,8 +62,6 @@ $string['fontsite'] = 'Site font';
 $string['fontsite_desc'] = 'Default font site. You can try out the fonts on <a href="https://fonts.google.com">Google Fonts site</a>.';
 $string['enablecourseindex'] = 'Enable course index';
 $string['enablecourseindex_desc'] = 'You can show/hide course index navigation';
-$string['enableclassicbreadcrumb'] = 'Enable classic breadcrumb';
-$string['enableclassicbreadcrumb_desc'] = 'This setting enables the classic breadcrumb, showing it on pages like course and categories.';
 
 // Advanced settings tab.
 $string['advancedsettings'] = 'Advanced';
