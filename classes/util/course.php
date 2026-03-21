@@ -48,7 +48,7 @@ class course {
      * @param core_course_list_element $course
      *
      */
-    public function __construct($course) {
+    public function __construct(core_course_list_element $course) {
         $this->course = $course;
     }
 
@@ -93,7 +93,7 @@ class course {
                     'id' => $user->id,
                     'fullname' => fullname($user),
                     'userpicture' => $userutil->get_user_picture(),
-                    'role' => $instructor['role']->displayname
+                    'role' => $instructor['role']->displayname,
                 ];
             }
         }
@@ -170,18 +170,5 @@ class course {
      */
     public function get_progress($userid = null) {
         return \core_completion\progress::get_course_progress_percentage(get_course($this->course->id), $userid);
-    }
-
-    /**
-     * Get the course url.
-     *
-     * @return moodle_url
-     */
-    public function get_url() {
-        if (class_exists(\local_course\util\course::class)) {
-            return new moodle_url('/local/course/index.php', ['id' => $this->course->id]);
-        }
-
-        return new moodle_url('/course/view.php', ['id' => $this->course->id]);
     }
 }

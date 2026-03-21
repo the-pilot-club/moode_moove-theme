@@ -15,10 +15,10 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Frontpage layout for the moove theme.
+ * A drawer based layout for the Eskada theme.
  *
  * @package    theme_moove
- * @copyright  2022 Willian Mano {@link https://conecti.me}
+ * @copyright  2025 Willian Mano - willianmanoaraujo@gmail.com
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
@@ -49,6 +49,10 @@ if ($courseindexopen) {
 
 $blockshtml = $OUTPUT->blocks('side-pre');
 $hasblocks = (strpos($blockshtml, 'data-block=') !== false || !empty($addblockbutton));
+
+$addcontentblockbutton = $OUTPUT->addblockbutton('content');
+$contentblocks = $OUTPUT->custom_block_region('content');
+
 if (!$hasblocks) {
     $blockdraweropen = false;
 }
@@ -88,7 +92,6 @@ $header = $PAGE->activityheader;
 $headercontent = $header->export_for_template($renderer);
 
 $bodyattributes = $OUTPUT->body_attributes($extraclasses);
-
 $templatecontext = [
     'sitename' => format_string($SITE->shortname, true, ['context' => \core\context\course::instance(SITEID), "escape" => false]),
     'output' => $OUTPUT,
@@ -108,17 +111,20 @@ $templatecontext = [
     'hasregionmainsettingsmenu' => !empty($regionmainsettingsmenu),
     'overflow' => $overflow,
     'headercontent' => $headercontent,
-    'addblockbutton' => $addblockbutton
+    'addblockbutton' => $addblockbutton,
+    'addcontentblockbutton' => $addcontentblockbutton,
+    'contentblocks' => $contentblocks
 ];
 
 $themesettings = new \theme_moove\util\settings();
 
 $templatecontext = array_merge($templatecontext, $themesettings->footer());
 
-if (isloggedin()) {
-    echo $OUTPUT->render_from_template('theme_moove/drawers', $templatecontext);
-} else {
+$template = 'theme_moove/drawers';
+if (!isloggedin()) {
     $templatecontext = array_merge($templatecontext, $themesettings->frontpage());
 
-    echo $OUTPUT->render_from_template('theme_moove/frontpage', $templatecontext);
+    $template = 'theme_moove/frontpage';
 }
+
+echo $OUTPUT->render_from_template($template, $templatecontext);

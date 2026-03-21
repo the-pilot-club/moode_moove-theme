@@ -31,8 +31,12 @@ define(['jquery', 'core/str', 'core/ajax'], function($, Str, Ajax) {
     var DarkMode = function() {
         this.registerEventListeners();
 
-        if ($('body').hasClass(SELECTORS.MODECLASS)) {
+        if (document.body.classList.contains(SELECTORS.MODECLASS)) {
+            document.body.setAttribute('data-bs-theme', 'dark');
+
             ISACTIVATED = true;
+        } else {
+            document.body.setAttribute('data-bs-theme', 'light');
         }
 
         this.setTriggerStatus();
@@ -46,6 +50,12 @@ define(['jquery', 'core/str', 'core/ajax'], function($, Str, Ajax) {
 
     DarkMode.prototype.toggleDarkMode = function() {
         $('body').toggleClass(SELECTORS.MODECLASS);
+
+        if (ISACTIVATED) {
+            document.body.setAttribute('data-bs-theme', 'light');
+        } else {
+            document.body.setAttribute('data-bs-theme', 'dark');
+        }
 
         ISACTIVATED = !ISACTIVATED;
 

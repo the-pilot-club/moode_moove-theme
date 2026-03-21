@@ -1,18 +1,16 @@
 <div class="card card-body">
-    <form action="{{config.wwwroot}}/theme/moove/reports/onlineusers.php" method="get" class="form">
-        <div class="form-row">
-            <div class="form-group col-md-5">
-                <label for="starttime">{{#str}}starttime, theme_moove{{/str}}</label>
-                <input type="datetime-local" class="form-control" id="starttime" name="starttime" value="{{{starttime}}}" required>
-            </div>
-            <div class="form-group col-md-5">
-                <label for="endtime">{{#str}}endtime, theme_moove{{/str}}</label>
-                <input type="datetime-local" class="form-control" id="endtime" name="endtime" value="{{{endtime}}}" required>
-            </div>
-            <div class="form-group col-md-2">
-                <label>&nbsp</label>
-                <button type="submit" class="btn btn-primary btn-block">{{#str}}filter, theme_moove{{/str}}</button>
-            </div>
+    <form action="{{config.wwwroot}}/theme/moove/reports/onlineusers.php" method="get" class="row g-3">
+        <div class="form-group col-auto">
+            <label for="starttime">{{#str}}starttime, theme_moove{{/str}}</label>
+            <input type="datetime-local" class="form-control" id="starttime" name="starttime" value="{{{starttime}}}" required>
+        </div>
+        <div class="form-group col-auto">
+            <label for="endtime">{{#str}}endtime, theme_moove{{/str}}</label>
+            <input type="datetime-local" class="form-control" id="endtime" name="endtime" value="{{{endtime}}}" required>
+        </div>
+        <div class="form-group col-auto">
+            <label>&nbsp</label>
+            <button type="submit" class="btn btn-primary btn-block">{{#str}}filter, theme_moove{{/str}}</button>
         </div>
     </form>
 </div>

@@ -15,15 +15,6 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Moove theme.
- *
- * @package     theme_moove
- * @copyright   2022 Willian Mano - http://conecti.me
- * @license     http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
- */
-defined('MOODLE_INTERNAL') || die;
-
-/**
  * Class theme_moove_core_h5p_renderer.
  *
  * See: https://tracker.moodle.org/browse/MDL-69087 and
@@ -42,15 +33,15 @@ class theme_moove_core_h5p_renderer extends \core_h5p\output\renderer {
      * @param string $embedtype How the H5P is displayed.
      */
     public function h5p_alter_styles(&$styles, array $libraries, string $embedtype) {
-        $theme = theme_config::load('moove');
+        $theme = \theme_config::load('moove');
 
         $content = $theme->settings->hvpcss;
 
         if (!empty($content)) {
-            $styles[] = (object) array(
+            $styles[] = (object) [
                 'path' => $this->get_style_url($content),
-                'version' => ''
-            );
+                'version' => '',
+            ];
         }
     }
 
