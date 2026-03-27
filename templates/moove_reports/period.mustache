@@ -1,18 +1,16 @@
 <div class="card card-body">
-    <form action="{{config.wwwroot}}/theme/moove/reports/period.php" method="get" class="form">
-        <div class="form-row">
-            <div class="form-group col-md-5">
-                <label for="startdate">{{#str}}startdate, theme_moove{{/str}}</label>
-                <input type="date" class="form-control" id="startdate" name="startdate" value="{{{startdate}}}" required>
-            </div>
-            <div class="form-group col-md-5">
-                <label for="enddate">{{#str}}enddate, theme_moove{{/str}}</label>
-                <input type="date" class="form-control" id="enddate" name="enddate" value="{{{enddate}}}" required>
-            </div>
-            <div class="form-group col-md-2">
-                <label>&nbsp</label>
-                <button type="submit" class="btn btn-primary btn-block">{{#str}}filter, theme_moove{{/str}}</button>
-            </div>
+    <form action="{{config.wwwroot}}/theme/moove/reports/period.php" method="get" class="row g-3">
+        <div class="form-group col-auto">
+            <label for="startdate">{{#str}}startdate, theme_moove{{/str}}</label>
+            <input type="date" class="form-control" id="startdate" name="startdate" value="{{{startdate}}}" required>
+        </div>
+        <div class="form-group col-auto">
+            <label for="enddate">{{#str}}enddate, theme_moove{{/str}}</label>
+            <input type="date" class="form-control" id="enddate" name="enddate" value="{{{enddate}}}" required>
+        </div>
+        <div class="form-group col-auto">
+            <label>&nbsp</label>
+            <button type="submit" class="btn btn-primary btn-block">{{#str}}filter, theme_moove{{/str}}</button>
         </div>
     </form>
 </div>

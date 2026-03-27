@@ -49,22 +49,5 @@ function xmldb_theme_moove_install() {
         }
     }
 
-    $key = new stdClass();
-    $key->plugin = 'theme_moove';
-    $key->name = 'licensekey';
-    $key->value = '';
-
-    $status = new stdClass();
-    $status->plugin = 'theme_moove';
-    $status->name = 'licensestatus';
-    $status->value = '';
-
-    $data[] = $key;
-    $data[] = $status;
-
-    $DB->insert_records('config_plugins', $data);
-
     return true;
 }
-
-

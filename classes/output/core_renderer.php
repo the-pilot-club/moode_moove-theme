@@ -25,9 +25,9 @@
 namespace theme_moove\output;
 
 use theme_config;
+use core\context\course as context_course;
 use moodle_url;
 use html_writer;
-use moodle_page;
 use theme_moove\output\core_course\activity_navigation;
 use theme_moove\util\license;
 use theme_moove\util\settings;
@@ -93,7 +93,7 @@ class core_renderer extends \theme_boost\output\core_renderer {
      *
      * @since Moodle 2.5.1 2.6
      */
-    public function body_attributes($additionalclasses = array()) {
+    public function body_attributes($additionalclasses = []) {
         $hasaccessibilitybar = get_user_preferences('thememoovesettings_enableaccessibilitytoolbar', '');
         if ($hasaccessibilitybar) {
             $additionalclasses[] = 'hasaccessibilitybar';
@@ -114,13 +114,20 @@ class core_renderer extends \theme_boost\output\core_renderer {
             $additionalclasses[] = $fonttype;
         }
 
+        $blackorlightmode = 'light';
+
         $settings = new settings();
         $darkmode = get_user_preferences('dark-mode-on', '');
         if ($settings->enabledarkmode && $darkmode) {
             $additionalclasses[] = 'moove-darkmode';
+            $blackorlightmode = 'dark';
         }
 
-        return ' id="'. $this->body_id().'" class="'.$this->body_css_classes($additionalclasses).'"';
+        if (!is_array($additionalclasses)) {
+            $additionalclasses = explode(' ', $additionalclasses);
+        }
+
+        return ' id="' . $this->body_id() . '" class="'.$this->body_css_classes($additionalclasses) . '" data-bs-theme="' . $blackorlightmode . '"';
     }
 
     /**
@@ -173,10 +180,36 @@ class core_renderer extends \theme_boost\output\core_renderer {
      *
      * @return string
      */
+    public function get_logo_dark() {
+        $logo = $this->get_theme_logo_dark_url();
+
+        if ($logo) {
+            return $logo;
+        }
+
+        return $this->get_logo();
+    }
+
+    /**
+     * Get the main logo URL.
+     *
+     * @return string
+     */
     public function get_theme_logo_url() {
         $theme = theme_config::load('moove');
 
         return $theme->setting_file_url('logo', 'logo');
+    }
+
+    /**
+     * Get the main dark logo URL.
+     *
+     * @return string
+     */
+    public function get_theme_logo_dark_url() {
+        $theme = theme_config::load('moove');
+
+        return $theme->setting_file_url('logodark', 'logodark');
     }
 
     /**
@@ -193,7 +226,7 @@ class core_renderer extends \theme_boost\output\core_renderer {
         $context->errorformatted = $this->error_text($context->error);
         $context->logourl = $this->get_logo();
         $context->sitename = format_string($SITE->fullname, true,
-            ['context' => \core\context\course::instance(SITEID), "escape" => false]);
+            ['context' => context_course::instance(SITEID), "escape" => false]);
 
         if (!$CFG->auth_instructions) {
             $context->instructions = null;
@@ -201,7 +234,7 @@ class core_renderer extends \theme_boost\output\core_renderer {
         }
 
         $context->hastwocolumns = false;
-        if ($context->hasidentityproviders || $CFG->auth_instructions) {
+        if ($CFG->auth_instructions) {
             $context->hastwocolumns = true;
         }
 
@@ -209,7 +242,7 @@ class core_renderer extends \theme_boost\output\core_renderer {
             foreach ($context->identityproviders as $key => $provider) {
                 $isfacebook = false;
 
-                if (strpos($provider['iconurl'], 'facebook') !== false) {
+                if (!empty($provider['iconurl']) && strpos($provider['iconurl'], 'facebook') !== false) {
                     $isfacebook = true;
                 }
 
@@ -253,7 +286,7 @@ class core_renderer extends \theme_boost\output\core_renderer {
         } else {
             $attributes = [
                 'href' => $CFG->wwwroot . '/user/contactsitesupport.php',
-                'class' => 'btn contactsitesupport btn-outline-info'
+                'class' => 'btn contactsitesupport btn-outline-info',
             ];
         }
 
@@ -283,72 +316,6 @@ class core_renderer extends \theme_boost\output\core_renderer {
         }
 
         return parent::favicon();
-    }
-
-    /**
-     * Renders the header bar.
-     *
-     * @param \context_header $contextheader Header bar object.
-     * @return string HTML for the header bar.
-     */
-    protected function render_context_header(\context_header $contextheader) {
-        if ($this->page->pagelayout == 'mypublic') {
-            return '';
-        }
-
-        // Generate the heading first and before everything else as we might have to do an early return.
-        if (!isset($contextheader->heading)) {
-            $heading = $this->heading($this->page->heading, $contextheader->headinglevel, 'h2');
-        } else {
-            $heading = $this->heading($contextheader->heading, $contextheader->headinglevel, 'h2');
-        }
-
-        // All the html stuff goes here.
-        $html = html_writer::start_div('page-context-header');
-
-        // Image data.
-        if (isset($contextheader->imagedata)) {
-            // Header specific image.
-            $html .= html_writer::div($contextheader->imagedata, 'page-header-image mr-2');
-        }
-
-        // Headings.
-        if (isset($contextheader->prefix)) {
-            $prefix = html_writer::div($contextheader->prefix, 'text-muted text-uppercase small line-height-3');
-            $heading = $prefix . $heading;
-        }
-        $html .= html_writer::tag('div', $heading, array('class' => 'page-header-headings'));
-
-        // Buttons.
-        if (isset($contextheader->additionalbuttons)) {
-            $html .= html_writer::start_div('btn-group header-button-group');
-            foreach ($contextheader->additionalbuttons as $button) {
-                if (!isset($button->page)) {
-                    // Include js for messaging.
-                    if ($button['buttontype'] === 'togglecontact') {
-                        \core_message\helper::togglecontact_requirejs();
-                    }
-                    if ($button['buttontype'] === 'message') {
-                        \core_message\helper::messageuser_requirejs();
-                    }
-                    $image = $this->pix_icon($button['formattedimage'], $button['title'], 'moodle', array(
-                        'class' => 'iconsmall',
-                        'role' => 'presentation'
-                    ));
-                    $image .= html_writer::span($button['title'], 'header-button-title');
-                } else {
-                    $image = html_writer::empty_tag('img', array(
-                        'src' => $button['formattedimage'],
-                        'role' => 'presentation'
-                    ));
-                }
-                $html .= html_writer::link($button['url'], html_writer::tag('span', $image), $button['linkattributes']);
-            }
-            $html .= html_writer::end_div();
-        }
-        $html .= html_writer::end_div();
-
-        return $html;
     }
 
     /**
@@ -396,7 +363,7 @@ class core_renderer extends \theme_boost\output\core_renderer {
                 $modname .= ' ' . get_string('hiddenwithbrackets');
             }
             // Module URL.
-            $linkurl = new moodle_url($module->url, array('forceview' => 1));
+            $linkurl = new moodle_url($module->url, ['forceview' => 1]);
             // Add module URL (as key) and name (as value) to the activity list array.
             $activitylist[$linkurl->out(false)] = $modname;
         }
@@ -433,66 +400,12 @@ class core_renderer extends \theme_boost\output\core_renderer {
     }
 
     /**
-     * Show license or update notice
-     *
-     * @return string License notice content.
-     */
-    public function show_license_notice() {
-        $content = '';
-        if (isloggedin() && !isguestuser()) {
-            $license = new license();
-
-            if (!$license->is_active()) {
-                $content = get_string('licensenotactive', 'theme_moove');
-
-                if (is_siteadmin()) {
-                    $content = get_string('licensenotactiveadmin', 'theme_moove');
-                }
-
-                $dismissbtn = '<button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>';
-
-                $content = html_writer::div($content . $dismissbtn,
-                    'alert alert-danger',
-                    ['style' => 'position: fixed;z-index: 9999;width: 100%;top: 130px;left: 0;right: 0;padding: 1.25rem;text-align: center;']);
-
-            }
-        }
-
-        return $content;
-    }
-
-    /**
-     * Render darkmode controls
-     *
-     * @return string Dark mode controls html content.
-     */
-    public function render_darkmode_controls() {
-        if (!isloggedin() || isguestuser()) {
-            return '';
-        }
-
-        $settings = new settings();
-
-        if (!$settings->enabledarkmode) {
-            return '';
-        }
-
-        $license = new license();
-
-        if (!$license->is_active()) {
-            return '';
-        }
-
-        return $this->render_from_template('theme_moove/darkmode', []);
-    }
-
-    /**
      * Returns plugins callback renderable data to be printed on navbar.
      *
      * @return string Final html code.
      */
     public function get_navbar_callbacks_data() {
-        $callbacks = get_plugins_with_function('moove_additional_header', 'lib.php');
+        $callbacks = get_plugins_with_function('moove_additional_header', 'lib.php', true, true);
 
         if (!$callbacks) {
             return '';
@@ -517,7 +430,7 @@ class core_renderer extends \theme_boost\output\core_renderer {
      * @return string Final html code.
      */
     public function get_module_footer_callbacks_data() {
-        $callbacks = get_plugins_with_function('moove_module_footer', 'lib.php');
+        $callbacks = get_plugins_with_function('moove_module_footer', 'lib.php', true, true);
 
         if (!$callbacks) {
             return '';
@@ -562,36 +475,36 @@ class core_renderer extends \theme_boost\output\core_renderer {
         $url = str_replace('&amp;', '&', $encodedurl);
 
         switch ($this->page->state) {
-            case moodle_page::STATE_BEFORE_HEADER :
-                // No output yet it is safe to delivery the full arsenal of redirect methods
+            case \moodle_page::STATE_BEFORE_HEADER :
+                // No output yet it is safe to delivery the full arsenal of redirect methods.
                 if (!$debugdisableredirect) {
                     // Don't use exactly the same time here, it can cause problems when both redirects fire at the same time.
                     $this->metarefreshtag = '<meta http-equiv="refresh" content="'. $delay .'; url='. $encodedurl .'" />'."\n";
-                    $this->page->requires->js_function_call('document.location.replace', array($url), false, ($delay + 3));
+                    $this->page->requires->js_function_call('document.location.replace', [$url], false, ($delay + 3));
                 }
                 $output = $this->header();
                 break;
-            case moodle_page::STATE_PRINTING_HEADER :
-                // We should hopefully never get here
+            case \moodle_page::STATE_PRINTING_HEADER :
+                // We should hopefully never get here.
                 throw new \coding_exception('You cannot redirect while printing the page header');
                 break;
-            case moodle_page::STATE_IN_BODY :
-                // We really shouldn't be here but we can deal with this
+            case \moodle_page::STATE_IN_BODY :
+                // We really shouldn't be here but we can deal with this.
                 debugging("You should really redirect before you start page output");
                 if (!$debugdisableredirect) {
-                    $this->page->requires->js_function_call('document.location.replace', array($url), false, $delay);
+                    $this->page->requires->js_function_call('document.location.replace', [$url], false, $delay);
                 }
                 $output = $this->opencontainers->pop_all_but_last();
                 break;
-            case moodle_page::STATE_DONE :
-                // Too late to be calling redirect now
+            case \moodle_page::STATE_DONE :
+                // Too late to be calling redirect now.
                 throw new \coding_exception('You cannot redirect after the entire page has been generated');
                 break;
         }
 
         $output .= $this->notification($message, $messagetype);
 
-        $output .= $this->render_from_template('theme_moove/loading_overlay', ['encodedurl' => $encodedurl]);
+        $output .= $this->render_from_template('theme_moove/loading-overlay', ['encodedurl' => $encodedurl]);
 
         if ($debugdisableredirect) {
             $output .= '<p><strong>'.get_string('erroroutput', 'error').'</strong></p>';
@@ -600,5 +513,76 @@ class core_renderer extends \theme_boost\output\core_renderer {
         $output .= $this->footer();
 
         return $output;
+    }
+
+    /**
+     * Renders the "breadcrumb" for all pages in boost.
+     *
+     * @return string the HTML for the navbar.
+     */
+    public function navbar(): string {
+        $newnav = new \theme_moove\output\boostnavbar($this->page);
+        return $this->render_from_template('core/navbar', $newnav);
+    }
+
+    /**
+     * Show license or update notice
+     *
+     * @return string License notice content.
+     */
+    public function show_license_notice() {
+        $content = '';
+        if (isloggedin() && !isguestuser()) {
+            $license = new license();
+
+            if (!$license->is_active()) {
+                $content = get_string('licensenotactive', 'theme_moove');
+
+                if (is_siteadmin()) {
+                    $content = get_string('licensenotactiveadmin', 'theme_moove');
+                }
+
+                $dismissbtn = '<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>';
+
+                $content = html_writer::div($content . $dismissbtn,
+                    'alert alert-danger alert-dismissible fade show',
+                    ['style' => 'position: fixed;z-index: 9999;top: 140px;left: 10px;right: 10px;text-align: center;']);
+
+            }
+        }
+
+        return $content;
+    }
+
+    /**
+     * Render my learning controls
+     *
+     * @return string My learning controls html content.
+     */
+    public function render_mylearning_controls() {
+        if (!isloggedin() || isguestuser()) {
+            return '';
+        }
+
+        return $this->render_from_template('theme_moove/moove/mylearning', []);
+    }
+
+    /**
+     * Render darkmode controls
+     *
+     * @return string Dark mode controls html content.
+     */
+    public function render_darkmode_controls() {
+        if (!isloggedin() || isguestuser()) {
+            return '';
+        }
+
+        $settings = new settings();
+
+        if (!$settings->enabledarkmode) {
+            return '';
+        }
+
+        return $this->render_from_template('theme_moove/moove/darkmode', []);
     }
 }

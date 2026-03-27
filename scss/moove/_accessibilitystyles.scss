@@ -95,7 +95,7 @@ body {
             background-image: none !important;
         }
 
-         *:not([class*="mce"]):not([id*="mce"]):not([id*="editor"]):not([class*="card-img"]):not([class*="activityicon"]) {
+        *:not([class*="mce"]):not([id*="mce"]):not([id*="editor"]):not([class*="card-img"]):not([class*="activityicon"]) {
             /* it works well only with * selector but mce editor gets unusable */
             background-color: #ffffcc !important;
             background-image: none !important;
