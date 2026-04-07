@@ -42,10 +42,10 @@ class settings {
      * @var array $files Theme file settings.
      */
     protected $files = [
-        'logo', 'logodark', 'loginbg',
+        'loginbg',
         'sliderimage1', 'sliderimage2', 'sliderimage3', 'sliderimage4', 'sliderimage5', 'sliderimage6',
         'sliderimage7', 'sliderimage8', 'sliderimage9', 'sliderimage10', 'sliderimage11', 'sliderimage12',
-        'marketing1icon', 'marketing2icon', 'marketing3icon', 'marketing4icon',
+        'marketing1icon', 'marketing2icon', 'marketing3icon', 'marketing4icon'
     ];
 
     /**
@@ -58,9 +58,9 @@ class settings {
     /**
      * Magic method to get theme settings
      *
-     * @param string $name
+     * @param $name string
      *
-     * @return false|string|null
+     * @return mixed
      */
     public function __get(string $name) {
         if (in_array($name, $this->files)) {
@@ -85,26 +85,12 @@ class settings {
         $templatecontext = [];
 
         $settings = [
-            'facebook', 'twitter', 'linkedin', 'youtube', 'instagram', 'whatsapp', 'telegram', 'tiktok', 'pinterest',
-            'website', 'mobile', 'mail', 'disableorangefooter',
+            'facebook', 'twitter', 'linkedin', 'youtube', 'instagram', 'whatsapp', 'telegram',
+            'website', 'mobile', 'mail', 'disableorangefooter'
         ];
 
-        $templatecontext['hasfootercontact'] = false;
-        $templatecontext['hasfootersocial'] = false;
         foreach ($settings as $setting) {
             $templatecontext[$setting] = $this->$setting;
-
-            if (in_array($setting, ['website', 'mobile', 'mail']) && !empty($templatecontext[$setting])) {
-                $templatecontext['hasfootercontact'] = true;
-            }
-
-            $socialsettings = [
-                'facebook', 'twitter', 'linkedin', 'youtube', 'instagram', 'whatsapp', 'telegram', 'tiktok', 'pinterest'
-            ];
-
-            if (in_array($setting, $socialsettings) && !empty($templatecontext[$setting])) {
-                $templatecontext['hasfootersocial'] = true;
-            }
         }
 
         $templatecontext['enablemobilewebservice'] = $CFG->enablemobilewebservice;
@@ -249,8 +235,7 @@ class settings {
                 $templatecontext['faq'][] = [
                     'id' => $i,
                     'question' => format_text($this->$faqquestion),
-                    'answer' => format_text($this->$faqanswer),
-                    'active' => $i === 1,
+                    'answer' => format_text($this->$faqanswer)
                 ];
             }
 

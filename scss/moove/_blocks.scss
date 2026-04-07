@@ -1,5 +1,5 @@
 .dashboard-card {
-    border: 1px solid var(--bs-border-color);
+    border: 1px solid $gray-200;
 
     &.dimmed {
         color: $text-muted;

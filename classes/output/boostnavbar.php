@@ -20,13 +20,13 @@ use core\navigation\views\view;
 use navigation_node;
 use moodle_url;
 use action_link;
-use core\lang_string;
+use lang_string;
 use theme_moove\util\settings;
 
 /**
  * Creates a navbar for boost that allows easy control of the navbar items.
  *
- * @package    theme_moove
+ * @package    theme_boost
  * @copyright  2021 Adrian Greeve <adrian@moodle.com>
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
@@ -113,7 +113,11 @@ class boostnavbar implements \renderable {
         if ($this->page->context->contextlevel == CONTEXT_MODULE) {
             $this->remove('mycourses');
             $this->remove('courses');
-
+            // Remove the course category breadcrumb nodes.
+            foreach ($this->items as $key => $item) {
+                // Remove if it is a course category breadcrumb node.
+//                $this->remove($item->key, \breadcrumb_navigation_node::TYPE_CATEGORY);
+            }
             $courseformat = course_get_format($this->page->course);
             $removesections = $courseformat->can_sections_be_removed_from_navigation();
             if ($removesections) {
@@ -258,7 +262,7 @@ class boostnavbar implements \renderable {
     protected function remove_no_link_items(bool $removesections = true): void {
         foreach ($this->items as $key => $value) {
             if (!$value->is_last() &&
-                    (!$value->has_action() || ($value->type == \navigation_node::TYPE_SECTION && $removesections))) {
+                (!$value->has_action() || ($value->type == \navigation_node::TYPE_SECTION && $removesections))) {
                 unset($this->items[$key]);
             }
         }
@@ -289,7 +293,7 @@ class boostnavbar implements \renderable {
             list($itemtext, $itemaction) = $this->get_node_text_and_action($item);
             if ($itemaction) {
                 if (array_key_exists($itemtext, $navigationviewitems) &&
-                        $navigationviewitems[$itemtext] === $itemaction) {
+                    $navigationviewitems[$itemtext] === $itemaction) {
                     $this->remove($item->key);
                 }
             }
