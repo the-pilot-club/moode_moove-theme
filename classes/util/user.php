@@ -45,11 +45,13 @@ class user {
      *
      * @param stdClass|int|null $user
      *
+     * @param stdClass $user
+     *
      */
     public function __construct(stdClass|int|null $user = null) {
         global $USER, $DB;
 
-        if (!is_object($user) && is_numeric($user)) {
+        if (!is_object($user)) {
             $user = $DB->get_record('user', ['id' => $user], '*', MUST_EXIST);
         }
 

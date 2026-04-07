@@ -43,7 +43,7 @@ if ($ADMIN->fulltree) {
     $name = 'theme_moove/logo';
     $title = get_string('logo', 'theme_moove');
     $description = get_string('logodesc', 'theme_moove');
-    $opts = ['accepted_types' => ['.png', '.jpg', '.gif', '.webp', '.tiff', '.svg'], 'maxfiles' => 1];
+    $opts = array('accepted_types' => array('.png', '.jpg', '.gif', '.webp', '.tiff', '.svg'), 'maxfiles' => 1);
     $setting = new admin_setting_configstoredfile($name, $title, $description, 'logo', 0, $opts);
     $page->add($setting);
 
@@ -51,7 +51,7 @@ if ($ADMIN->fulltree) {
     $name = 'theme_moove/favicon';
     $title = get_string('favicon', 'theme_moove');
     $description = get_string('favicondesc', 'theme_moove');
-    $opts = ['accepted_types' => ['.ico'], 'maxfiles' => 1];
+    $opts = array('accepted_types' => array('.ico'), 'maxfiles' => 1);
     $setting = new admin_setting_configstoredfile($name, $title, $description, 'favicon', 0, $opts);
     $page->add($setting);
 
@@ -83,14 +83,14 @@ if ($ADMIN->fulltree) {
     $description = get_string('presetfiles_desc', 'theme_moove');
 
     $setting = new admin_setting_configstoredfile($name, $title, $description, 'preset', 0,
-        ['maxfiles' => 10, 'accepted_types' => ['.scss']]);
+        array('maxfiles' => 10, 'accepted_types' => array('.scss')));
     $page->add($setting);
 
     // Login page background image.
     $name = 'theme_moove/loginbgimg';
     $title = get_string('loginbgimg', 'theme_moove');
     $description = get_string('loginbgimg_desc', 'theme_moove');
-    $opts = ['accepted_types' => ['.png', '.jpg', '.svg']];
+    $opts = array('accepted_types' => array('.png', '.jpg', '.svg'));
     $setting = new admin_setting_configstoredfile($name, $title, $description, 'loginbgimg', 0, $opts);
     $setting->set_updatedcallback('theme_reset_all_caches');
     $page->add($setting);
@@ -128,7 +128,7 @@ if ($ADMIN->fulltree) {
         'Oxygen' => 'Oxygen',
         'Manrope' => 'Manrope',
         'Sora' => 'Sora',
-        'Epilogue' => 'Epilogue',
+        'Epilogue' => 'Epilogue'
     ];
 
     $name = 'theme_moove/fontsite';
@@ -142,7 +142,7 @@ if ($ADMIN->fulltree) {
     $title = get_string('enablecourseindex', 'theme_moove');
     $description = get_string('enablecourseindex_desc', 'theme_moove');
     $default = 1;
-    $choices = [0 => get_string('no'), 1 => get_string('yes')];
+    $choices = array(0 => get_string('no'), 1 => get_string('yes'));
     $setting = new admin_setting_configselect($name, $title, $description, $default, $choices);
     $page->add($setting);
 
@@ -184,14 +184,6 @@ if ($ADMIN->fulltree) {
     $setting->set_updatedcallback('theme_reset_all_caches');
     $page->add($setting);
 
-    // H5P custom CSS.
-    $setting = new admin_setting_configtextarea(
-        'theme_moove/hvpcss',
-        get_string('hvpcss', 'theme_moove'),
-        get_string('hvpcss_desc', 'theme_moove'),
-        '');
-    $page->add($setting);
-
     $settings->add($page);
 
     /*
@@ -206,7 +198,7 @@ if ($ADMIN->fulltree) {
     $title = get_string('disableteacherspic', 'theme_moove');
     $description = get_string('disableteacherspicdesc', 'theme_moove');
     $default = 1;
-    $choices = [0 => get_string('no'), 1 => get_string('yes')];
+    $choices = array(0 => get_string('no'), 1 => get_string('yes'));
     $setting = new admin_setting_configselect($name, $title, $description, $default, $choices);
     $page->add($setting);
 
@@ -215,7 +207,7 @@ if ($ADMIN->fulltree) {
     $title = get_string('slidercount', 'theme_moove');
     $description = get_string('slidercountdesc', 'theme_moove');
     $default = 0;
-    $options = [];
+    $options = array();
     for ($i = 0; $i < 13; $i++) {
         $options[$i] = $i;
     }
@@ -236,7 +228,7 @@ if ($ADMIN->fulltree) {
             $name = 'theme_moove/sliderimage' . $sliderindex;
             $title = get_string('sliderimage', 'theme_moove');
             $description = get_string('sliderimagedesc', 'theme_moove');
-            $opts = ['accepted_types' => ['.png', '.jpg', '.gif', '.webp', '.tiff', '.svg'], 'maxfiles' => 1];
+            $opts = array('accepted_types' => array('.png', '.jpg', '.gif', '.webp', '.tiff', '.svg'), 'maxfiles' => 1);
             $setting = new admin_setting_configstoredfile($name, $title, $description, $fileid, 0, $opts);
             $page->add($setting);
 
@@ -262,7 +254,7 @@ if ($ADMIN->fulltree) {
     $title = get_string('displaymarketingboxes', 'theme_moove');
     $description = get_string('displaymarketingboxesdesc', 'theme_moove');
     $default = 1;
-    $choices = [0 => get_string('no'), 1 => get_string('yes')];
+    $choices = array(0 => get_string('no'), 1 => get_string('yes'));
     $setting = new admin_setting_configselect($name, $title, $description, $default, $choices);
     $page->add($setting);
 
@@ -287,7 +279,7 @@ if ($ADMIN->fulltree) {
             $filearea = "marketing{$i}icon";
             $name = "theme_moove/$filearea";
             $title = get_string('marketingicon', 'theme_moove', $i . '');
-            $opts = ['accepted_types' => ['.png', '.jpg', '.gif', '.webp', '.tiff', '.svg']];
+            $opts = array('accepted_types' => array('.png', '.jpg', '.gif', '.webp', '.tiff', '.svg'));
             $setting = new admin_setting_configstoredfile($name, $title, '', $filearea, 0, $opts);
             $page->add($setting);
 
@@ -313,7 +305,7 @@ if ($ADMIN->fulltree) {
     $title = get_string('numbersfrontpage', 'theme_moove');
     $description = get_string('numbersfrontpagedesc', 'theme_moove');
     $default = 1;
-    $choices = [0 => get_string('no'), 1 => get_string('yes')];
+    $choices = array(0 => get_string('no'), 1 => get_string('yes'));
     $setting = new admin_setting_configselect($name, $title, $description, $default, $choices);
     $page->add($setting);
 
@@ -333,7 +325,7 @@ if ($ADMIN->fulltree) {
     $title = get_string('faqcount', 'theme_moove');
     $description = get_string('faqcountdesc', 'theme_moove');
     $default = 0;
-    $options = [];
+    $options = array();
     for ($i = 0; $i < 11; $i++) {
         $options[$i] = $i;
     }
@@ -389,13 +381,6 @@ if ($ADMIN->fulltree) {
     $setting = new admin_setting_configtext($name, $title, $description, '');
     $page->add($setting);
 
-    // TikTok url setting.
-    $name = 'theme_moove/tiktok';
-    $title = get_string('tiktok', 'theme_moove');
-    $description = get_string('tiktokdesc', 'theme_moove');
-    $setting = new admin_setting_configtext($name, $title, $description, '');
-    $page->add($setting);
-
     // Facebook url setting.
     $name = 'theme_moove/facebook';
     $title = get_string('facebook', 'theme_moove');
@@ -431,13 +416,6 @@ if ($ADMIN->fulltree) {
     $setting = new admin_setting_configtext($name, $title, $description, '');
     $page->add($setting);
 
-    // Pinterest url setting.
-    $name = 'theme_moove/pinterest';
-    $title = get_string('pinterest', 'theme_moove');
-    $description = get_string('pinterestdesc', 'theme_moove');
-    $setting = new admin_setting_configtext($name, $title, $description, '');
-    $page->add($setting);
-
     // Whatsapp url setting.
     $name = 'theme_moove/whatsapp';
     $title = get_string('whatsapp', 'theme_moove');
@@ -454,32 +432,8 @@ if ($ADMIN->fulltree) {
 
     $settings->add($page);
 
-    /*
-    * --------------------
-    * Dark mode settings tab
-    * --------------------
-    */
-    $page = new admin_settingpage('theme_moove_darkmode', get_string('darkmodesettings', 'theme_moove'));
-
-    // Enable dark mode footer.
-    $name = 'theme_moove/enabledarkmode';
-    $title = get_string('darkmode_enable', 'theme_moove');
-    $default = 1;
-    $choices = [0 => get_string('no'), 1 => get_string('yes')];
-    $setting = new admin_setting_configselect($name, $title, '', $default, $choices);
-    $page->add($setting);
-
-    // Logo file setting.
-    $name = 'theme_moove/logodark';
-    $title = get_string('logodark', 'theme_moove');
-    $description = get_string('logodarkdesc', 'theme_moove');
-    $opts = ['accepted_types' => ['.png', '.jpg', '.gif', '.webp', '.tiff', '.svg'], 'maxfiles' => 1];
-    $setting = new admin_setting_configstoredfile($name, $title, $description, 'logodark', 0, $opts);
-    $page->add($setting);
-
-    $settings->add($page);
-
     $license = new \theme_moove\util\license();
+
     if ($license->is_active()) {
         // Premium tab.
         $page = new admin_settingpage('theme_moove_premium', get_string('premiumsettings', 'theme_moove'));
@@ -488,6 +442,14 @@ if ($ADMIN->fulltree) {
         $name = 'theme_moove/disableorangefooter';
         $title = get_string('disableorangefooter', 'theme_moove');
         $default = 0;
+        $choices = array(0 => get_string('no'), 1 => get_string('yes'));
+        $setting = new admin_setting_configselect($name, $title, '', $default, $choices);
+        $page->add($setting);
+
+        // Enable dark mode footer.
+        $name = 'theme_moove/enabledarkmode';
+        $title = get_string('darkmode_enable', 'theme_moove');
+        $default = 1;
         $choices = array(0 => get_string('no'), 1 => get_string('yes'));
         $setting = new admin_setting_configselect($name, $title, '', $default, $choices);
         $page->add($setting);
@@ -551,14 +513,12 @@ if ($ADMIN->fulltree) {
     }
 }
 
-$ADMIN->add('reports', new admin_category('moovereports', get_string('reports', 'theme_moove')));
-
 // Moove reports links.
-$ADMIN->add('moovereports', new admin_externalpage('reportmoovegraphs', get_string('report_graphs', 'theme_moove'),
-    "$CFG->wwwroot/theme/moove/reports/index.php"));
+$ADMIN->add('reports', new admin_externalpage('reportmoovegraphs', get_string('report_graphs', 'theme_moove'),
+    "$CFG->wwwroot/theme/moove/reports/index.php", 'theme/moove:viewreports'));
 
-$ADMIN->add('moovereports', new admin_externalpage('reportmooveperiod', get_string('report_period', 'theme_moove'),
-    "$CFG->wwwroot/theme/moove/reports/period.php"));
+$ADMIN->add('reports', new admin_externalpage('reportmooveperiod', get_string('report_period', 'theme_moove'),
+    "$CFG->wwwroot/theme/moove/reports/period.php", 'theme/moove:viewreports'));
 
-$ADMIN->add('moovereports', new admin_externalpage('reportmooveonlineusers', get_string('report_onlineusers', 'theme_moove'),
-    "$CFG->wwwroot/theme/moove/reports/onlineusers.php"));
+$ADMIN->add('reports', new admin_externalpage('reportmooveonlineusers', get_string('report_onlineusers', 'theme_moove'),
+    "$CFG->wwwroot/theme/moove/reports/onlineusers.php", 'theme/moove:viewreports'));

@@ -1,20 +1,25 @@
-body.path-theme-moove .bg-1 {
+#page-theme-moove-reportperiod .bg-1,
+#page-theme-moove-reportindex .bg-1 {
   background-color: #1e88e5;
 }
 
-body.path-theme-moove .bg-2 {
+#page-theme-moove-reportperiod .bg-2,
+#page-theme-moove-reportindex .bg-2 {
   background-color: #7460ee;
 }
 
-body.path-theme-moove .bg-3 {
+#page-theme-moove-reportperiod .bg-3,
+#page-theme-moove-reportindex .bg-3 {
   background-color: #26c6da;
 }
 
-body.path-theme-moove .bg-4 {
+#page-theme-moove-reportperiod .bg-4,
+#page-theme-moove-reportindex .bg-4 {
   background-color: #357a32;
 }
 
-body.path-theme-moove .small-box {
+#page-theme-moove-reportperiod .small-box,
+#page-theme-moove-reportindex .small-box {
   border-radius: 4px;
   position: relative;
   display: block;
@@ -22,26 +27,32 @@ body.path-theme-moove .small-box {
   box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
 }
 
-body.path-theme-moove .small-box > .inner {
+#page-theme-moove-reportperiod .small-box > .inner,
+#page-theme-moove-reportindex .small-box > .inner {
   padding: 5px 10px;
 }
 
-body.path-theme-moove .small-box h3,
-body.path-theme-moove .small-box p {
+#page-theme-moove-reportperiod .small-box h3,
+#page-theme-moove-reportperiod .small-box p,
+#page-theme-moove-reportindex .small-box h3,
+#page-theme-moove-reportindex .small-box p {
   z-index: 5;
   color: #fff;
 }
-body.path-theme-moove .small-box p {
+#page-theme-moove-reportperiod .small-box p,
+#page-theme-moove-reportindex .small-box p {
   margin-bottom: 0;
 }
 
-body.path-theme-moove .small-box h3 {
+#page-theme-moove-reportperiod .small-box h3,
+#page-theme-moove-reportindex .small-box h3 {
   margin: 0 0 10px 0;
   white-space: nowrap;
   padding: 0;
 }
 
-body.path-theme-moove .small-box .icon {
+#page-theme-moove-reportperiod .small-box .icon,
+#page-theme-moove-reportindex .small-box .icon {
   -webkit-transition: all .3s linear;
   -o-transition: all .3s linear;
   transition: all .3s linear;

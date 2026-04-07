@@ -126,20 +126,16 @@ $string['mobile'] = 'Mobile';
 $string['mobiledesc'] = 'Enter Mobile No. Ex: +5598912341234';
 $string['mail'] = 'E-Mail';
 $string['maildesc'] = 'Company support e-mail';
-$string['tiktok'] = 'TikTok URL';
-$string['tiktokdesc'] = 'Enter the URL of your TikTok. (i.e http://www.tiktok.com/@myinstitution)';
 $string['facebook'] = 'Facebook URL';
 $string['facebookdesc'] = 'Enter the URL of your Facebook. (i.e http://www.facebook.com/myinstitution)';
-$string['twitter'] = 'X URL';
-$string['twitterdesc'] = 'Enter the URL of your X. (i.e http://www.x.com/myinstitution)';
+$string['twitter'] = 'Twitter URL';
+$string['twitterdesc'] = 'Enter the URL of your twitter. (i.e http://www.twitter.com/myinstitution)';
 $string['linkedin'] = 'Linkedin URL';
 $string['linkedindesc'] = 'Enter the URL of your Linkedin. (i.e http://www.linkedin.com/myinstitution)';
 $string['youtube'] = 'Youtube URL';
 $string['youtubedesc'] = 'Enter the URL of your Youtube. (i.e https://www.youtube.com/user/myinstitution)';
 $string['instagram'] = 'Instagram URL';
 $string['instagramdesc'] = 'Enter the URL of your Instagram. (i.e https://www.instagram.com/myinstitution)';
-$string['pinterest'] = 'Pinterest URL';
-$string['pinterestdesc'] = 'Enter the URL of your Pinterest. (i.e http://www.pinterest.com/myinstitution)';
 $string['whatsapp'] = 'Whatsapp number';
 $string['whatsappdesc'] = 'Enter your whatsapp number for contact.';
 $string['telegram'] = 'Telegram';
@@ -186,6 +182,7 @@ $string['privacy:thememoovesettings_enableaccessibilitytoolbar'] = 'The current 
 // Premium settings.
 $string['premiumsettings'] = 'Premium';
 $string['disableorangefooter'] = 'Disable orange footer';
+$string['darkmode_enable'] = 'Enable dark mode';
 $string['loginposition'] = 'Login box position';
 $string['loginposition_desc'] = 'Where you want to position the login box in the login page.';
 $string['loginposition_left'] = 'Left';
@@ -218,10 +215,9 @@ $string['alreadyregistered_msg'] = 'This license is already registered for anoth
 
 // Reports.
 $string['moove:viewreports'] = 'See moove reports';
-$string['reports'] = 'Moove reports';
-$string['report_graphs'] = 'Graphic reports';
-$string['report_period'] = 'Reports by period';
-$string['report_onlineusers'] = 'Online users';
+$string['report_graphs'] = 'Moove - Graphic reports';
+$string['report_period'] = 'Moove - Reports by period';
+$string['report_onlineusers'] = 'Moove - Online users';
 
 $string['seeperiodreport'] = 'See informations report by period';
 $string['totalusers'] = 'Users';
@@ -258,11 +254,3 @@ $string['hvpcss_desc'] = 'Custom CSS code to be applied on H5P activities';
 // Redirect page
 $string['redirectmessage'] = 'This page should automatically redirect.';
 $string['redirectbtntext'] = 'If nothing is happening please click here to continue.';
-
-$string['darkmodesettings'] = 'Dark mode';
-$string['darkmode_enable'] = 'Enable dark mode';
-$string['logodark'] = 'Logo dark';
-$string['logodarkdesc'] = 'Logo displayed in the header when dark mode is enabled.';
-
-$string['mylearning'] = 'My learning';
-$string['nolearning'] = 'You haven\'t started your learning yet';

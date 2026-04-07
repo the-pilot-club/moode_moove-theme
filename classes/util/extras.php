@@ -158,14 +158,11 @@ class extras {
                     $url = $userauthplugin->edit_profile_url();
                     if (empty($url)) {
                         if (empty($course)) {
-                            return new moodle_url('/user/edit.php', ['id' => $user->id, 'returnto' => 'profile']);
+                            return new moodle_url('/user/edit.php', array('id' => $user->id, 'returnto' => 'profile'));
                         }
 
-                        return new moodle_url('/user/edit.php', [
-                            'id' => $user->id,
-                            'course' => $course->id,
-                            'returnto' => 'profile',
-                        ]);
+                         return new moodle_url('/user/edit.php', array('id' => $user->id, 'course' => $course->id,
+                                'returnto' => 'profile'));
                     }
                 }
             }
